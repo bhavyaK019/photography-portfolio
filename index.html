@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photography Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation Menu -->
+    <nav>
+        <ul class="menu">
+            <li><a href="#" onclick="loadSection('about')">About</a></li>
+            <li><a href="#" onclick="loadSection('gallery')">Gallery</a></li>
+            <li><a href="#" onclick="loadSection('upload')">Upload</a></li>
+            <li><a href="#" onclick="loadSection('contact')">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Dynamic Content -->
+    <div id="content">
+        <!-- Default Hero Section -->
+        <div class="hero-carousel">
+            <div class="carousel-slide">
+                <img src="https://source.unsplash.com/random/1600x900?landscape" alt="Slide 1">
+            </div>
+            <div class="carousel-slide">
+                <img src="https://source.unsplash.com/random/1600x900?nature" alt="Slide 2">
+            </div>
+            <div class="carousel-slide">
+                <img src="https://source.unsplash.com/random/1600x900?city" alt="Slide 3">
+            </div>
+            <div class="carousel-controls">
+                <span class="prev" onclick="prevSlide()">&#10094;</span>
+                <span class="next" onclick="nextSlide()">&#10095;</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="hidden">
+        <span id="lightbox-close">&times;</span>
+        <img id="lightbox-img" src="" alt="Large View">
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <p>&copy; 2024 My Photography Portfolio. All rights reserved.</p>
+            <div class="social-links">
+                <a href="https://facebook.com" target="_blank">Facebook</a>
+                <a href="https://instagram.com" target="_blank">Instagram</a>
+                <a href="https://twitter.com" target="_blank">Twitter</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
