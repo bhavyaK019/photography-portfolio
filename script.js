@@ -90,37 +90,38 @@ function loadSection(section) {
 }
 
 // Function to dynamically load gallery content from GitHub
-function loadGallery() {
+async function loadGallery() {
     const grid = document.getElementById('gallery-grid');
-    const githubBase = "https://raw.githubusercontent.com/bhavyaK019/photography-portfolio/main/images/";
+    const githubApiUrl = "https://api.github.com/repos/bhavyaK019/photography-portfolio/contents/images";
+    const githubRawBase = "https://raw.githubusercontent.com/bhavyaK019/photography-portfolio/main/images/";
 
-    // List of image filenames
-    const photos = [
-    "portfolio1.jpg",
-    "portfolio2.jpg",
-    "portfolio3.jpg",
-    "portfolio4.jpg",
-    "portfolio5.jpg",
-    "portfolio6.jpg",
-    "portfolio7.jpg",
-    "portfolio8.jpg",
-    "portfolio9.jpg",
-    "portfolio10.jpg",
-    "portfolio11.jpg",
-    "portfolio12.jpg"
-];
+    try {
+        // Fetch the list of files in the 'images' folder
+        const response = await fetch(githubApiUrl);
+        const files = await response.json();
 
-    grid.innerHTML = photos
-        .map(
-            (filename, i) => `
-            <div class="gallery-item">
-                <img src="${githubBase}${filename}" alt="Photo ${i + 1}" onclick="openLightbox('${githubBase}${filename}')">
-                <div class="gallery-caption">Photo ${i + 1}</div>
-            </div>
-        `
-        )
-        .join('');
+        // Filter only `.jpg` files
+        const jpgFiles = files.filter(file => file.name.endsWith(".jpg"));
+
+        // Generate the gallery dynamically
+        const galleryHtml = jpgFiles
+            .map(
+                (file, i) => `
+                <div class="gallery-item">
+                    <img src="${githubRawBase}${file.name}" alt="Photo ${i + 1}" onclick="openLightbox('${githubRawBase}${file.name}')">
+                    <div class="gallery-caption">Photo ${i + 1}</div>
+                </div>
+            `
+            )
+            .join('');
+
+        grid.innerHTML = galleryHtml;
+    } catch (error) {
+        console.error("Error loading gallery:", error);
+        grid.innerHTML = "<p>Failed to load gallery. Please try again later.</p>";
+    }
 }
+
 
 // Setup the lightbox functionality
 function setupLightbox() {
