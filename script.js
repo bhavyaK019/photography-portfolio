@@ -74,6 +74,22 @@ function loadSection(section) {
             loadGallery(); // Load the gallery content dynamically
             break;
 
+        case 'upload':
+            content.innerHTML = `
+                <section class="upload-section">
+                    <h2>Upload a Photo</h2>
+                    <div class="upload-container">
+                        <input type="file" id="photoInput" accept="image/*" class="file-input">
+                        <button onclick="uploadPhoto()" class="upload-button">Upload</button>
+                        <div id="upload-progress" class="upload-progress hidden">Uploading...</div>
+                    </div>
+                    <p class="upload-note">
+                        Note: This functionality currently works locally. Uploaded images are not saved to the server.
+                    </p>
+                </section>
+            `;
+            break;
+
         case 'contact':
             content.innerHTML = `
                 <section>
@@ -88,6 +104,7 @@ function loadSection(section) {
             content.innerHTML = `<p>Section not found.</p>`;
     }
 }
+
 
 // Function to dynamically load gallery content from GitHub
 async function loadGallery() {
@@ -137,4 +154,22 @@ function setupLightbox() {
         lightboxImg.src = src;
         lightbox.classList.remove('hidden');
     };
+}
+
+// Function to simulate photo upload locally
+function uploadPhoto() {
+    const photoInput = document.getElementById('photoInput');
+    const file = photoInput.files[0];
+    const progress = document.getElementById('upload-progress');
+
+    if (!file) {
+        alert('Please select a file to upload.');
+        return;
+    }
+
+    progress.classList.remove('hidden');
+    setTimeout(() => {
+        progress.classList.add('hidden');
+        alert('Upload successful! Note: File is not saved as this is a local demo.');
+    }, 2000);
 }
