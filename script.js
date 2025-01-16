@@ -35,9 +35,31 @@ function loadSection(section) {
     switch (section) {
         case 'about':
             content.innerHTML = `
-                <section>
-                    <h2>About Me</h2>
-                    <p>Hello! I’m a passionate photographer who loves capturing beautiful and meaningful moments.</p>
+                <section class="about-section">
+                    <h2>Welcome to Our Photography Portfolio</h2>
+                    <p>
+                        Pictures help us hold memories close and dear. Through our photography, we aim to freeze moments
+                        and create memories that last forever. 
+                    </p>
+                    <p>
+                        Our mission is to nurture creativity and inspire a love for photography. Join us as we capture
+                        life's most beautiful moments and embark on adventures to perfect the art of photography.
+                    </p>
+                    <h3>Meet Our Team</h3>
+                    <div class="team">
+                        <div class="team-member">
+                            <h4>President</h4>
+                            <p>Bhavya Sri Kalapati</p>
+                        </div>
+                        <div class="team-member">
+                            <h4>Vice President</h4>
+                            <p>Richa Tiwari</p>
+                        </div>
+                        <div class="team-member">
+                            <h4>Secretary</h4>
+                            <p>Ananya Chivukula</p>
+                        </div>
+                    </div>
                 </section>
             `;
             break;
@@ -52,24 +74,12 @@ function loadSection(section) {
             loadGallery(); // Load the gallery content dynamically
             break;
 
-        case 'upload':
-            content.innerHTML = `
-                <section>
-                    <h2>Upload a Photo</h2>
-                    <div class="upload-container">
-                        <input type="file" id="photoInput" accept="image/*" class="file-input">
-                        <button onclick="uploadPhoto()" class="upload-button">Upload</button>
-                        <div id="upload-progress" class="upload-progress hidden">Uploading...</div>
-                    </div>
-                </section>
-            `;
-            break;
-
         case 'contact':
             content.innerHTML = `
                 <section>
-                    <h2>Contact Me</h2>
-                    <p>Email: <a href="mailto:example@email.com">example@email.com</a></p>
+                    <h2>Contact Us</h2>
+                    <p>Email: <a href="mailto:photography.dvhs@gmail.com">photography.dvhs@gmail.com</a></p>
+                    <p>Instagram: <a href="https://instagram.com/photography_dvhs" target="_blank">@photography_dvhs</a></p>
                 </section>
             `;
             break;
@@ -79,49 +89,24 @@ function loadSection(section) {
     }
 }
 
-
-// Function to upload a photo and save it in localStorage
-function uploadPhoto() {
-    const photoInput = document.getElementById('photoInput');
-    const file = photoInput.files[0];
-    const progress = document.getElementById('upload-progress');
-
-    if (!file) {
-        alert('No file selected.');
-        return;
-    }
-
-    progress.classList.remove('hidden');
-
-    const reader = new FileReader();
-    reader.onload = function () {
-        const photos = JSON.parse(localStorage.getItem('photos')) || [];
-        photos.push(reader.result);
-        localStorage.setItem('photos', JSON.stringify(photos));
-        progress.classList.add('hidden');
-        alert('Photo uploaded successfully!');
-        loadGallery();
-    };
-    reader.readAsDataURL(file);
-}
-
-// Function to dynamically load gallery content
+// Function to dynamically load gallery content from GitHub
 function loadGallery() {
     const grid = document.getElementById('gallery-grid');
-    const photos = JSON.parse(localStorage.getItem('photos')) || [];
+    const githubBase = "https://raw.githubusercontent.com/bhavyaK019/photography-portfolio/main/images/";
 
-    grid.innerHTML = photos.length
-        ? photos
-              .map(
-                  (src, i) => `
-                  <div class="gallery-item">
-                      <img src="${src}" alt="Photo ${i + 1}" onclick="openLightbox('${src}')">
-                      <div class="gallery-caption">Photo ${i + 1}</div>
-                  </div>
-              `
-              )
-              .join('')
-        : '<p>No photos uploaded yet. Start uploading to fill your gallery!</p>';
+    // List of image filenames
+    const photos = ["photo1.jpg", "photo2.jpg", "photo3.jpg", "hero.jpg"];
+
+    grid.innerHTML = photos
+        .map(
+            (filename, i) => `
+            <div class="gallery-item">
+                <img src="${githubBase}${filename}" alt="Photo ${i + 1}" onclick="openLightbox('${githubBase}${filename}')">
+                <div class="gallery-caption">Photo ${i + 1}</div>
+            </div>
+        `
+        )
+        .join('');
 }
 
 // Setup the lightbox functionality
