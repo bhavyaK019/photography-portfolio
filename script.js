@@ -95,7 +95,20 @@ function loadGallery() {
     const githubBase = "https://raw.githubusercontent.com/bhavyaK019/photography-portfolio/main/images/";
 
     // List of image filenames
-    const photos = ["photo1.jpg", "photo2.jpg", "photo3.jpg", "hero.jpg"];
+    const photos = [
+    "portfolio1.jpg",
+    "portfolio2.jpg",
+    "portfolio3.jpg",
+    "portfolio4.jpg",
+    "portfolio5.jpg",
+    "portfolio6.jpg",
+    "portfolio7.jpg",
+    "portfolio8.jpg",
+    "portfolio9.jpg",
+    "portfolio10.jpg",
+    "portfolio11.jpg",
+    "portfolio12.jpg"
+];
 
     grid.innerHTML = photos
         .map(
